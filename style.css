@@ -166,6 +166,7 @@ footer {
 .dados-planilha td {
   padding: 8px 10px;
   border-bottom: 1px solid #ddd;
+    text-transform: lowercase;
 }
 
 .dados-planilha tr:nth-child(even) {
