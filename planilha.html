@@ -32,53 +32,67 @@
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxjK4NnrXo6eG5-ruZ-d429mFqBYtqGX4uJ78pr8oJ-B6sNHEPgj-C0-7EDU9e0GTJshg/exec"; // substitua pela sua URL
 
-        async function carregar() {
-            const msg = document.getElementById('mensagem');
-            const wrap = document.getElementById('table-wrap');
-            msg.textContent = 'Carregando dados...';
-            wrap.innerHTML = '';
-
-            try {
-                const res = await fetch(SCRIPT_URL);
-                const dados = await res.json();
-
-                if (!dados.length) {
-                    msg.textContent = 'Nenhum registro encontrado.';
-                    return;
-                }
-
-                msg.textContent = '';
-                const table = document.createElement('table');
-                table.className = 'dados-planilha';
-
-                const thead = document.createElement('thead');
-                const trh = document.createElement('tr');
-                Object.keys(dados[0]).forEach(h => {
-                    const th = document.createElement('th');
-                    th.textContent = h;
-                    trh.appendChild(th);
-                });
-                thead.appendChild(trh);
-                table.appendChild(thead);
-
-                const tbody = document.createElement('tbody');
-                dados.forEach(obj => {
-                    const tr = document.createElement('tr');
-                    Object.values(obj).forEach(v => {
-                        const td = document.createElement('td');
-                        td.textContent = v;
-                        tr.appendChild(td);
-                    });
-                    tbody.appendChild(tr);
-                });
-                table.appendChild(tbody);
-                wrap.appendChild(table);
-            } catch (err) {
-                msg.textContent = 'Erro ao carregar: ' + err.message;
+            async function carregar() {
+        const msg = document.getElementById('mensagem');
+        const wrap = document.getElementById('table-wrap');
+        msg.textContent = 'Carregando dados...';
+        wrap.innerHTML = '';
+    
+        try {
+            const res = await fetch(SCRIPT_URL);
+            const dados = await res.json();
+    
+            if (!dados.length) {
+                msg.textContent = 'Nenhum registro encontrado.';
+                return;
             }
+    
+            msg.textContent = '';
+    
+            // --- AQUI você define os rótulos que quer mostrar na barra azul:
+            const labels = ['Horario', 'Nome', 'E-mail', 'Mensagem'];
+    
+            // Pega a ordem das colunas retornadas (para manter os valores na ordem correta)
+            const dataKeys = Object.keys(dados[0]);
+    
+            const table = document.createElement('table');
+            table.className = 'dados-planilha';
+    
+            // --- Cabeçalho personalizado (mostra os labels que você quer)
+            const thead = document.createElement('thead');
+            const trh = document.createElement('tr');
+            // Se a quantidade de labels for diferente da quantidade de colunas,
+            // ajusta para o menor comprimento disponível
+            const cols = Math.min(labels.length, dataKeys.length);
+            for (let i = 0; i < cols; i++) {
+                const th = document.createElement('th');
+                th.textContent = labels[i];
+                trh.appendChild(th);
+            }
+            thead.appendChild(trh);
+            table.appendChild(thead);
+    
+            // --- Corpo da tabela: usa a ordem dataKeys para pegar os valores corretos
+            const tbody = document.createElement('tbody');
+            dados.forEach(obj => {
+                const tr = document.createElement('tr');
+                for (let i = 0; i < cols; i++) {
+                    const key = dataKeys[i];
+                    const td = document.createElement('td');
+                    td.textContent = obj[key] != null ? obj[key] : '';
+                    tr.appendChild(td);
+                }
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+    
+            wrap.appendChild(table);
+        } catch (err) {
+            msg.textContent = 'Erro ao carregar: ' + err.message;
         }
-
-        carregar();
+    }
+    
+    carregar();
     </script>
 </body>
 
