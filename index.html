@@ -75,6 +75,13 @@ async function carregarConteudo() {
 }
 
 carregarConteudo();
+    fetch(SCRIPT_URL)
+  .then(r => {
+    if (!r.ok) throw new Error("Erro HTTP " + r.status);
+    return r.json();
+  })
+  .then(data => console.log("Dados recebidos:", data))
+  .catch(err => alert("Erro ao carregar dados: " + err.message));
 </script>
 
     <!-- Rodapé -->
