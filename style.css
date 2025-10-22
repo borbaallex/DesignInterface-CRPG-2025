@@ -1,17 +1,17 @@
-/* Estilo geral */
+/* 🌿 Estilo geral */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #e3f2fd, #bbdefb);
-    color: #333;
+    background: linear-gradient(to right, #f5f5dc, #eae7c6);
+    color: #2c2c2c;
     text-align: center;
 }
 
-/* Cabeçalho mais moderno */
+/* 🌿 Cabeçalho */
 header {
-    background: linear-gradient(135deg, #0d47a1, #1976d2);
-    color: white;
+    background: linear-gradient(135deg, #556b2f, #6b8e23);
+    color: #fefefe;
     padding: 20px 0;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
@@ -21,6 +21,7 @@ header h2 {
     margin: 0;
     font-size: 2em;
     letter-spacing: 2px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
 header nav {
@@ -29,7 +30,7 @@ header nav {
 
 header nav a {
     display: inline-block;
-    color: #ffeb3b;
+    color: #ffeb99;
     margin: 0 15px;
     text-decoration: none;
     font-weight: bold;
@@ -39,30 +40,31 @@ header nav a {
 }
 
 header nav a:hover {
-    background-color: #ffeb3b;
-    color: #0d47a1;
+    background-color: #ffeb99;
+    color: #3a4d1b;
 }
 
-/* Conteúdo principal */
+/* 🌿 Conteúdo principal */
 main {
     padding: 20px;
 }
 
 main h1 {
-    color: #0d47a1;
+    color: #3a4d1b;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
 }
 
-/* Rodapé */
+/* 🌿 Rodapé */
 footer {
-    background-color: #eeeeee;
+    background-color: #e5e0c3;
     padding: 15px;
     margin-top: 30px;
     font-size: 0.9em;
-    color: #555;
+    color: #3a3a3a;
     box-shadow: 0 -2px 6px rgba(0,0,0,0.2);
 }
 
-/* Galeria de carros */
+/* 🌿 Galeria de carros */
 .lab {
     display: flex;
     justify-content: center;
@@ -82,6 +84,8 @@ footer {
     transform: scale(1.05);
     box-shadow: 0 6px 16px rgba(0,0,0,0.4);
 }
+
+/* 🌿 Filiais */
 .filiais {
     display: flex;
     justify-content: center;
@@ -103,6 +107,8 @@ footer {
     transform: scale(1.05);
     box-shadow: 0 6px 16px rgba(0,0,0,0.4);
 }
+
+/* 🌿 Formulário de contato */
 .contato-form {
     max-width: 400px;
     margin: 20px auto;
@@ -114,21 +120,23 @@ footer {
 
 .contato-form label {
     font-weight: bold;
-    color: #0d47a1;
+    color: #3a4d1b;
 }
 
 .contato-form input,
 .contato-form textarea {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #8f9779;
     border-radius: 6px;
     font-size: 1em;
     width: 100%;
     box-sizing: border-box;
+    background: #fafafa;
+    color: #333;
 }
 
 .contato-form button {
-    background: #0d47a1;
+    background: #556b2f;
     color: white;
     padding: 10px;
     border: none;
@@ -139,8 +147,10 @@ footer {
 }
 
 .contato-form button:hover {
-    background: #1976d2;
+    background: #6b8e23;
 }
+
+/* 🌿 Tabela */
 .table-wrap {
   max-width: 100%;
   overflow-x: auto;
@@ -152,12 +162,12 @@ footer {
   border-collapse: collapse;
   max-width: 900px;
   margin: 0 auto;
-  background: #fff;
+  background: #ffffff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 
 .dados-planilha th {
-  background: linear-gradient(90deg, #0d47a1, #1976d2);
+  background: linear-gradient(90deg, #556b2f, #6b8e23);
   color: #fff;
   text-align: left;
   padding: 10px;
@@ -166,44 +176,44 @@ footer {
 .dados-planilha td {
   padding: 8px 10px;
   border-bottom: 1px solid #ddd;
-    text-transform: lowercase;
 }
 
 .dados-planilha tr:nth-child(even) {
-  background: #f9f9f9;
+  background: #f3f3e0;
 }
 
 .dados-planilha tr:hover {
-  background: #e3f2fd;
+  background: #e0e5c6;
 }
 
 .info-msg {
   text-align: center;
   padding: 10px;
+  color: #3a4d1b;
 }
-Passo 4 – Adicionar o CSS no final do style.css
-Adicione este código no final do arquivo style.css:
 
+/* 🌿 Conteúdo dinâmico */
 .conteudo-scroll {
   max-height: 500px;
   overflow-y: auto;
   padding: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #8f9779;
   border-radius: 8px;
-  background: #fff;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .bloco-item {
   margin-bottom: 24px;
   padding-bottom: 16px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #ccc;
   text-align: center;
 }
 
 .bloco-item img {
   display: block;
   margin: 12px auto;
-  max-width: 400px;   /* mantém o tamanho controlado */
+  max-width: 400px;
   width: 100%;
   height: auto;
   border-radius: 6px;
@@ -211,10 +221,12 @@ Adicione este código no final do arquivo style.css:
 }
 
 .bloco-item h2 {
-  color: #0d47a1;
+  color: #556b2f;
   margin-bottom: 6px;
+  font-weight: bold;
 }
 
 .bloco-item p {
   margin: 6px 0;
+  color: #2c2c2c;
 }
