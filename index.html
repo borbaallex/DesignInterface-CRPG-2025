@@ -21,7 +21,7 @@
     </header>
 
     <!-- Conteúdo principal -->
-  <main>
+<main>
   <h1>Bem-vindo à Locadora de Veículos</h1>
   <p>Encontre o carro ideal para sua viagem, trabalho ou lazer.</p>
 
@@ -47,11 +47,11 @@ async function carregarConteudo() {
       bloco.className = 'bloco-item';
 
       const titulo = document.createElement('h2');
-      titulo.textContent = item.titulo?.toLowerCase() || '';
+      titulo.textContent = item.titulo || '';
       bloco.appendChild(titulo);
 
       const descricao = document.createElement('p');
-      descricao.textContent = item.descricao?.toLowerCase() || '';
+      descricao.textContent = item.descricao || '';
       bloco.appendChild(descricao);
 
       if (item.url && item.url.startsWith('http')) {
@@ -77,6 +77,7 @@ async function carregarConteudo() {
 
 carregarConteudo();
 </script>
+
 
     <!-- Rodapé -->
     <footer>
