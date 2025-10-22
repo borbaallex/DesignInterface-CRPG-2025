@@ -21,7 +21,7 @@
     </header>
 
     <!-- Conteúdo principal -->
-    <main>
+   <main>
   <h1>Bem-vindo à Locadora de Veículos</h1>
   <p>Encontre o carro ideal para sua viagem, trabalho ou lazer.</p>
 
@@ -31,7 +31,8 @@
 </main>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwjRCUh4rXV9WuJKtiInxFe3M5hwRApiioopL_CGf3_yn8bDkSRYgTUnoVm8PGzMWNApw/exec"; // substitua pela URL do seu Apps Script
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwjRCUh4rXV9WuJKtiInxFe3M5hwRApiioopL_CGf3_yn8bDkSRYgTUnoVm8PGzMWNApw/exec";
+
 async function carregarConteudo() {
   const container = document.getElementById('conteudo');
   container.innerHTML = "<p>Carregando conteúdo...</p>";
@@ -46,22 +47,22 @@ async function carregarConteudo() {
       bloco.className = 'bloco-item';
 
       const titulo = document.createElement('h2');
-      titulo.textContent = item.Título || '';
+      titulo.textContent = item.titulo?.toLowerCase() || '';
       bloco.appendChild(titulo);
 
       const descricao = document.createElement('p');
-      descricao.textContent = item.Descrição || '';
+      descricao.textContent = item.descricao?.toLowerCase() || '';
       bloco.appendChild(descricao);
 
-      if (item.Url && item.Url.startsWith('http')) {
-        if (item.Url.match(/\.(jpg|jpeg|png|gif|webp)$/i) || item.Url.includes('unsplash')) {
+      if (item.url && item.url.startsWith('http')) {
+        if (item.url.match(/\.(jpg|jpeg|png|gif|webp)$/i) || item.url.includes('unsplash')) {
           const img = document.createElement('img');
-          img.src = item.Url;
-          img.alt = item.Título || 'Imagem';
+          img.src = item.url;
+          img.alt = item.titulo || 'Imagem';
           bloco.appendChild(img);
         } else {
           const link = document.createElement('a');
-          link.href = item.Url;
+          link.href = item.url;
           link.textContent = 'Ver mais';
           bloco.appendChild(link);
         }
