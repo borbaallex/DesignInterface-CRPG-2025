@@ -41,62 +41,57 @@ async function carregarConteudo() {
   try {
     const res = await fetch(SCRIPT_URL);
     const dados = await res.json();
-    console.log(dados); // DEBUG
-
     container.innerHTML = '';
 
     dados.forEach(item => {
       const bloco = document.createElement('div');
       bloco.className = 'bloco-item';
 
+      // TÍTULO
       const titulo = document.createElement('h2');
-      titulo.textContent = item["Título"] || '';
+      titulo.textContent = item.titulo || '';
       bloco.appendChild(titulo);
 
+      // DESCRIÇÃO
       const descricao = document.createElement('p');
-      descricao.textContent = item["Descrição"] || '';
+      descricao.textContent = item.descricao || '';
       bloco.appendChild(descricao);
 
-      const url = item["Url"];
-
-      if (url && url.startsWith("http")) {
-
-        // Detecta vídeo do YouTube
+      // IMAGEM OU VIDEO
+      if (item.url && item.url.startsWith('http')) {
         const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/;
-        const match = url.match(youtubeRegex);
+        const match = item.url.match(youtubeRegex);
 
         if (match) {
+          // Se for vídeo do Youtube → embeda
+          const videoId = match[1];
           const iframe = document.createElement('iframe');
-          iframe.src = `https://www.youtube.com/embed/${match[1]}`;
+          iframe.src = `https://www.youtube.com/embed/${videoId}`;
           iframe.width = "100%";
           iframe.height = "315";
-          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
           iframe.setAttribute("allowfullscreen", true);
           bloco.appendChild(iframe);
-        }
 
-        // Se for imagem
-        else if (url.match(/\.(jpg|jpeg|png|gif|webp)$/i) || url.includes("unsplash")) {
+        } else if (item.url.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+          // Se for imagem → mostra imagem
           const img = document.createElement('img');
-          img.src = url;
-          img.alt = item["Título"] || 'Imagem';
+          img.src = item.url;
+          img.alt = item.titulo || 'Imagem';
           bloco.appendChild(img);
-        }
 
-        // Link normal
-        else {
+        } else {
+          // Outro tipo de link
           const link = document.createElement('a');
-          link.href = url;
-          link.target = "_blank";
-          link.textContent = "Ver mais";
+          link.href = item.url;
+          link.textContent = 'Ver mais';
           bloco.appendChild(link);
         }
       }
 
       container.appendChild(bloco);
     });
+
   } catch (err) {
-    console.error(err);
     container.innerHTML = "<p>Erro ao carregar dados: " + err.message + "</p>";
   }
 }
