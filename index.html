@@ -41,6 +41,8 @@ async function carregarConteudo() {
   try {
     const res = await fetch(SCRIPT_URL);
     const dados = await res.json();
+    console.log(dados); // DEBUG
+
     container.innerHTML = '';
 
     dados.forEach(item => {
@@ -48,49 +50,60 @@ async function carregarConteudo() {
       bloco.className = 'bloco-item';
 
       const titulo = document.createElement('h2');
-      titulo.textContent = item.titulo || '';
+      titulo.textContent = item["Título"] || '';
       bloco.appendChild(titulo);
 
       const descricao = document.createElement('p');
-      descricao.textContent = item.descricao || '';
+      descricao.textContent = item["Descrição"] || '';
       bloco.appendChild(descricao);
 
-      if (item.Url && item.Url.startsWith('http')) {
-  const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/;
+      const url = item["Url"];
 
-  const match = item.Url.match(youtubeRegex);
-  if (match) {
-    const videoId = match[1];
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://www.youtube.com/embed/${videoId}`;
-    iframe.height = "315";
-    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-    iframe.setAttribute("allowfullscreen", true);
-    bloco.appendChild(iframe);
-  }
-  else if (item.Url.match(/\.(jpg|jpeg|png|gif|webp)$/i) || item.Url.includes('unsplash')) {
-    const img = document.createElement('img');
-    img.src = item.Url;
-    img.alt = item.Título || 'Imagem';
-    bloco.appendChild(img);
-  }
-  else {
-    const link = document.createElement('a');
-    link.href = item.Url;
-    link.textContent = 'Ver mais';
-    bloco.appendChild(link);
-  }
-}
+      if (url && url.startsWith("http")) {
+
+        // Detecta vídeo do YouTube
+        const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/;
+        const match = url.match(youtubeRegex);
+
+        if (match) {
+          const iframe = document.createElement('iframe');
+          iframe.src = `https://www.youtube.com/embed/${match[1]}`;
+          iframe.width = "100%";
+          iframe.height = "315";
+          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+          iframe.setAttribute("allowfullscreen", true);
+          bloco.appendChild(iframe);
+        }
+
+        // Se for imagem
+        else if (url.match(/\.(jpg|jpeg|png|gif|webp)$/i) || url.includes("unsplash")) {
+          const img = document.createElement('img');
+          img.src = url;
+          img.alt = item["Título"] || 'Imagem';
+          bloco.appendChild(img);
+        }
+
+        // Link normal
+        else {
+          const link = document.createElement('a');
+          link.href = url;
+          link.target = "_blank";
+          link.textContent = "Ver mais";
+          bloco.appendChild(link);
+        }
+      }
 
       container.appendChild(bloco);
     });
   } catch (err) {
+    console.error(err);
     container.innerHTML = "<p>Erro ao carregar dados: " + err.message + "</p>";
   }
 }
 
 carregarConteudo();
 </script>
+
 
 
     <!-- Rodapé -->
